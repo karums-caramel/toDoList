@@ -7,6 +7,7 @@ function displayTasks (obj) {
     main.innerHTML = '';
     let keyIndex = 0;
     let cardIndex = 0;
+
     for (const arr of Object.values(obj)) {
         // here i create groups for each separate project the user can assign tasks to.
 
@@ -24,6 +25,7 @@ function displayTasks (obj) {
         projectGroup.appendChild(projectHeading);
         projectGroup.appendChild(projectGroupInner);
         main.appendChild(projectGroup);
+        addInputSuggestions(obj);
         for (const taskObj of arr) {
             const cardBody = document.createElement('div');
             cardBody.classList.add('card-body');
@@ -67,6 +69,18 @@ function displayTasks (obj) {
         }
     }
 };
+
+function addInputSuggestions (obj) {
+    // here i add suggestions to the html datalist element, displaying existing p[roject names :)
+    const htmlDataList = document.querySelector('#projects');
+
+    for (const project of Object.keys(obj)) {
+        const option = document.createElement('option');
+        option.setAttribute('value', project);
+        option.textContent = project;
+        htmlDataList.appendChild(option);
+    };
+}
 
 
 

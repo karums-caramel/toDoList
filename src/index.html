@@ -20,7 +20,7 @@
                     </div>
                     <div class="input-wrapper">
                         <label for="desc">Description</label>
-                        <input type="text" id="desc" required>
+                        <textarea id="desc" required cols="20" rows="3"></textarea>
                     </div>
                     <div class="input-wrapper">
                         <label for="deadline">Task deadline</label>
@@ -28,7 +28,10 @@
                     </div>
                     <div class="input-wrapper">
                         <label for="project-group">Project group</label>
-                        <input type="text" id="project-group">
+                        <input type="text" id="project-group" list="projects" autocomplete="off">
+                        <datalist id="projects">
+
+                        </datalist>
                     </div>
                     <button id="note-form-submit-btn" type="button">Create note</button>
                 </form>

@@ -44,7 +44,7 @@ body {
 
 #body-wrap {
     display: grid;
-    grid-template: 1fr 9fr / 1fr;
+    grid-template: minmax(5rem, 1fr) 9fr / 1fr;
     min-height: 100vh;
 }
 
@@ -99,17 +99,26 @@ header {
     box-shadow: inset 1px 1px 6px var(--purple), inset -1px -1px 6px var(--purple);
 }
 
+.form-displayed {
+    position: absolute;
+    height: 2rem !important;
+    width: 2rem !important;
+    left: 85%;
+    top: 3%;
+}
+
 /* form styling */
 
 #note-form-container {
     position: fixed;
-    top: 15%;
-    right: 3rem;
+    top: 2rem;
+    right: 2rem;
 
     background-color: var(--pastel-green);
     border: 2px solid var(--blue);
     border-radius: 1rem;
     padding: 1rem;
+    width: clamp(10rem, 90vw, 20rem);
 }
 
 #note-form-container.hidden {
@@ -118,25 +127,36 @@ header {
 
 form {
     display: grid;
-    grid-template: repeat(5, 1fr) / 1fr;
+    grid-template: 1fr 1.5fr 1fr 1fr 0.6fr / 1fr;
     gap: 0.5rem;
     font-size: .8rem;
 }
 
 .input-wrapper {
+    height: min(auto, 15rem);
+    display: flex;
+    flex-flow: column;
+    max-height: fit-content;
+    /*
     display: grid;
-    grid-template: 1fr / 1fr 1fr;
+    grid-template: 1fr / 1fr 1fr;*/
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     color: var(--not-quite-black);
 
     input {
         border: 1px solid var(--light-gray);
         border-radius: 5px;
+        height: 1rem;
+    }
+
+    textarea {
+        border: 1px solid var(--light-gray);
+        border-radius: 5px;
     }
 }
 
-.input-wrapper input:focus {
+.input-wrapper input:focus, .input-wrapper textarea:focus {
     outline: 1px solid var(--not-quite-black);
 }
 
@@ -147,8 +167,12 @@ legend {
 
 #note-form-submit-btn {
     width: max(5rem, 50%);
-    height: 1rem;
+    height: 100%;
     border-radius: 5px;
+}
+
+#desc {
+    resize: none;
 }
 
 
