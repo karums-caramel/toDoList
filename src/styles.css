@@ -1,0 +1,238 @@
+/* initial setup */
+
+*, *::after, *::before {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    --main-background: rgb(138, 163, 153);
+    --purple: rgba(125, 132, 178, 0.596);
+    --blue: rgb(143, 166, 203);
+    --lime-yellow: rgba(220, 244, 167, 0.801);
+    --pastel-green: rgb(213, 249, 222);
+
+    --light-gray: rgba(170, 170, 170, 0.5);
+    --not-quite-black: rgba(0, 0, 0, 0.65);
+    --done-green: rgb(70, 253, 101);
+
+    font-size: clamp(12px, max(2vh, 2vw), 24px);
+    font-family: 'Courier New', Courier, monospace;
+}
+
+button {
+    outline: none;
+    border: 2px solid var(--blue);
+    background-color: white;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: whitesmoke;
+}
+
+button:active {
+    box-shadow: inset 1px 1px 6px var(--purple), inset -1px -1px 6px var(--purple);
+}
+
+/* body or main setup */
+
+body {
+    background-color: var(--main-background);
+    margin: 1rem 1rem 0 1rem;
+}
+
+#body-wrap {
+    display: grid;
+    grid-template: 1fr 9fr / 1fr;
+    min-height: 100vh;
+}
+
+/* header styling ^-^ */
+
+header {
+    /*
+    display: grid;
+    grid-template: 1fr / minmax(10rem, 1fr) repeat(auto-fit, minmax(20rem, 1fr));
+    align-items: center;
+    */
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 1rem 0 0 1rem;
+    background-color: var(--pastel-green);
+    border-radius: 2rem 2rem 0 0 ;
+}
+
+#header-heading {
+    font-size: 1.4rem;
+    flex: 1 1 30rem;
+    padding: 0rem 0 0 0rem;
+    justify-self: center;
+}
+
+#note-form-btn-wrapper {
+    height: 100%;
+    align-content: center;
+    padding: 0 1rem 0 0;
+    flex: 1 1 5rem;
+    display: grid;
+    justify-items: right;
+}
+
+#note-form-btn {
+
+    /* box-shadow: 2px 2px 5px var(--purple); */
+    border-radius: 2rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    font-size: 1.2rem;
+    z-index: 2;
+}
+
+#note-form-btn:hover {
+    background-color: whitesmoke;
+}
+
+#note-form-btn:active {
+    box-shadow: inset 1px 1px 6px var(--purple), inset -1px -1px 6px var(--purple);
+}
+
+/* form styling */
+
+#note-form-container {
+    position: fixed;
+    top: 15%;
+    right: 3rem;
+
+    background-color: var(--pastel-green);
+    border: 2px solid var(--blue);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+#note-form-container.hidden {
+    display: none;
+}
+
+form {
+    display: grid;
+    grid-template: repeat(5, 1fr) / 1fr;
+    gap: 0.5rem;
+    font-size: .8rem;
+}
+
+.input-wrapper {
+    display: grid;
+    grid-template: 1fr / 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--not-quite-black);
+
+    input {
+        border: 1px solid var(--light-gray);
+        border-radius: 5px;
+    }
+}
+
+.input-wrapper input:focus {
+    outline: 1px solid var(--not-quite-black);
+}
+
+legend {
+    font-size: .9rem;
+    margin: 0 0 .5rem 0;
+}
+
+#note-form-submit-btn {
+    width: max(5rem, 50%);
+    height: 1rem;
+    border-radius: 5px;
+}
+
+
+/* and now the main ! */
+
+main {
+    background-color: var(--lime-yellow);
+    padding: 1rem;
+}
+
+#task-container {
+    display: flex;
+    flex-flow: column;
+    gap: .7rem;
+}
+
+.project-group {
+    border-top: 0.1rem solid var(--purple);
+    border-bottom: 0.1rem solid var(--purple);
+    border-radius: 8px;
+    padding: 0.5rem;
+    flex: 1;
+}
+
+.project-group-inner {
+    display: flex;
+    flex-flow: row wrap;
+    gap: .5rem;
+}
+
+.card-body {
+    flex: 0.1 1 15rem;
+    height: clamp(15vh, 10rem, 20vh);
+
+    border-radius: 12px;
+    padding: 1rem;
+    background-color: whitesmoke;
+
+    display: grid;
+    grid-template: 1fr 3fr 1fr 1fr / 1fr;
+}
+
+.card-desc {
+    color: var(--not-quite-black);
+    font-size: 0.7rem;
+}
+
+.card-deadline {
+    font-size: 0.6rem;
+
+}
+
+.card-progress-input {
+    font-size: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > div:hover {
+        cursor: pointer;
+
+    }
+
+    > div {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    > div:nth-child(n+2) {
+        border-left: 1px solid var(--not-quite-black);
+    }
+}
+
+.checked {
+    .not-started {
+        
+    }
+
+    .started {
+        box-shadow: inset 2px 2px 2px orange;
+    }
+}
+
+.checked {
+    /* box-shadow: inset 2px 2px 5px rgb(202, 202, 202); */
+    font-weight: bold;
+}

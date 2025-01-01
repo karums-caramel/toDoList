@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="body-wrap">
+        <header>
+            <h3 id="header-heading">FILL THESE NOTES WITH SILLYNESS</h3>
+            <div id="note-form-btn-wrapper"><button id="note-form-btn">+</button></div>
+
+            <div id="note-form-container" class="hidden">
+                <legend>Task creator</legend>
+                <form action="">
+                    <div class="input-wrapper">
+                        <label for="title">Title</label>
+                        <input type="text" id="title" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="desc">Description</label>
+                        <input type="text" id="desc" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="deadline">Task deadline</label>
+                        <input type="datetime-local" name="" id="deadline" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <label for="project-group">Project group</label>
+                        <input type="text" id="project-group">
+                    </div>
+                    <button id="note-form-submit-btn" type="button">Create note</button>
+                </form>
+            </div>
+        </header>
+        <main>
+            <h3 id="task-heading">Tasks!</h3>
+            <div id="task-container">
+
+            </div>
+        </main>
+    </div>
+</body>
+</html>
