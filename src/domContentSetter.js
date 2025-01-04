@@ -1,6 +1,6 @@
 // here the function takes the object containing the users' tasks and displays them.
 
-import { updateStatus, applyDefaultStylesAtElementCreation } from "./taskStatusUpdater";
+import { updateStatus, applyDefaultStylesAtElementCreation, deleteTask, expandOrHideGroup } from "./taskStatusUpdater";
 
 function displayTasks (obj) {
     const main = document.querySelector('#task-container');
@@ -16,23 +16,41 @@ function displayTasks (obj) {
         projectGroup.setAttribute('id', arr + 'Group');
         const projectGroupInner = document.createElement('div');
         projectGroupInner.classList.add('project-group-inner');
-        projectGroupInner.setAttribute('id', arr + 'GroupInner');
+        projectGroupInner.setAttribute('id', Object.keys(obj)[keyIndex] + 'GroupInner');
 
         const projectHeading = document.createElement('h3');
         projectHeading.textContent = Object.keys(obj)[keyIndex];
+        projectHeading.classList.add('project-heading');
         keyIndex++;
+
+        const projectExpandBtn = document.createElement('div');
+        projectExpandBtn.classList.add('project-expand-btn');
+        projectExpandBtn.textContent = 'Hide';
+        projectExpandBtn.addEventListener(('click'), (e) => {
+            expandOrHideGroup(e, )
+        })
         
-        projectGroup.appendChild(projectHeading);
-        projectGroup.appendChild(projectGroupInner);
+        projectGroup.append(projectHeading, projectExpandBtn, projectGroupInner);
         main.appendChild(projectGroup);
         addInputSuggestions(obj);
         for (const taskObj of arr) {
+            // here if create all of the elements for displaying the individual todolist tasks.
+
             const cardBody = document.createElement('div');
             cardBody.classList.add('card-body');
             cardBody.setAttribute('id', taskObj.id);
 
             const cardHeading = document.createElement('h4');
             cardHeading.textContent = taskObj.title;
+            cardHeading.classList.add('card-heading');
+
+            // button attached to each task for deleting it.
+            const cardDelBtn = document.createElement('div');
+            cardDelBtn.classList.add('card-del-btn');
+            cardDelBtn.textContent = 'x';
+            cardDelBtn.addEventListener('click', (e) => {
+                deleteTask(e, arr, taskObj, obj);
+            })
 
             const cardDesc = document.createElement('p');
             cardDesc.textContent = taskObj.desc;
@@ -64,15 +82,16 @@ function displayTasks (obj) {
 
 
             
-            cardBody.append(cardHeading, cardDesc, cardDeadline, cardProgressInput)
+            cardBody.append(cardHeading, cardDelBtn, cardDesc, cardDeadline, cardProgressInput)
             projectGroupInner.appendChild(cardBody);
         }
     }
 };
 
 function addInputSuggestions (obj) {
-    // here i add suggestions to the html datalist element, displaying existing p[roject names :)
+    // here i add suggestions to the html datalist element, displaying existing project names :)
     const htmlDataList = document.querySelector('#projects');
+    htmlDataList.innerHTML = '';
 
     for (const project of Object.keys(obj)) {
         const option = document.createElement('option');

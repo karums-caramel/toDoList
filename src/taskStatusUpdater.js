@@ -74,5 +74,29 @@ function applyDefaultStylesAtElementCreation (taskObj, cardBody) {
     }
 }
 
+function deleteTask(e, arr, taskObj, obj) {
+    const targetParent = e.target.parentNode;
+    // first i remove the tasks object from storage so it doesnt respawn upon updating the page.
 
-export {updateStatus, applyDefaultStylesAtElementCreation};
+    arr.splice(arr.indexOf(taskObj), 1);
+
+    // now i remove it visually from the page, also removing the project group if the task happens to be the last one in the group.
+    // also i remove the group from storage in that case for afromentioned reasons.
+    console.log(obj[document.querySelector('.project-heading').textContent])
+    if (targetParent.parentNode.children.length === 1) {
+        delete obj[document.querySelector('.project-heading').textContent];
+        targetParent.parentNode.parentNode.remove();
+    } else {
+        targetParent.remove();
+    }
+}
+
+function expandOrHideGroup (e, ) {
+    const btn = e.target;
+
+    btn.textContent = (btn.textContent === 'Hide') ? 'Expand' : 'Hide';
+    btn.nextSibling.style.display = (btn.textContent === 'Expand') ? 'none' : 'flex';
+}
+
+
+export {updateStatus, applyDefaultStylesAtElementCreation, deleteTask, expandOrHideGroup};
