@@ -119,6 +119,7 @@ header {
     border-radius: 1rem;
     padding: 1rem;
     width: clamp(10rem, 90vw, 20rem);
+    z-index: 2;
 }
 
 #note-form-container.hidden {

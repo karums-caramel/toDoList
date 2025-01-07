@@ -1,24 +1,31 @@
-const taskGroupList = {};
-let taskId = 0;
-
+let taskGroupList = JSON.parse(localStorage.getItem('taskGroupObject'));
+(!localStorage.getItem('taskId')) ? localStorage.setItem('taskId', 0) : localStorage.setItem('taskId', localStorage.getItem('taskId'));
+const localTaskListSoICanUseItHere = JSON.parse(localStorage.getItem('taskGroupObject')) || {};
 function addTask (inputDataObj) {
-    if (taskGroupList[inputDataObj.project] === undefined) {
-        taskGroupList[inputDataObj.project] = [];
-        taskGroupList[inputDataObj.project].push(addItInner());
+    if (localTaskListSoICanUseItHere[inputDataObj.project] === undefined) {
+        localTaskListSoICanUseItHere[inputDataObj.project] = [];
+        localTaskListSoICanUseItHere[inputDataObj.project].push(addItInner());
     } else {
-        taskGroupList[inputDataObj.project].push(addItInner());
+        localTaskListSoICanUseItHere[inputDataObj.project].push(addItInner());
     };
 
     function addItInner () {
+        const deadline = inputDataObj.deadline;
         return {
             title: inputDataObj.title,
             desc: inputDataObj.desc,
-            deadline: inputDataObj.deadline,
-            id: taskId,
-            status: 'not-started'
+            deadline: `${deadline.getDate()}/${deadline.getMonth() + 1}/${deadline.getFullYear()} ${deadline.getHours()}:${deadline.getMinutes()}`,
+            id: localStorage.getItem('taskId'),
+            status: 'not-started',
+            project: inputDataObj.project
         }
     };
-    taskId++;
+    localStorage.setItem('taskId', (+localStorage.getItem('taskId') + 1));
+
+    localStorage.setItem('taskGroupObject', JSON.stringify(localTaskListSoICanUseItHere));
+    taskGroupList = JSON.parse(localStorage.getItem('taskGroupObject'));
+    console.log(taskGroupList);
+    console.log(localTaskListSoICanUseItHere);
 };
 
 export {addTask, taskGroupList};

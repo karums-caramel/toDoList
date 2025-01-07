@@ -7,6 +7,7 @@ import { updateStatus } from './taskStatusUpdater';
 const noteFormBtn = document.querySelector('#note-form-btn');
 const noteFormBtnWrapper = document.querySelector('#note-form-btn-wrapper');
 
+displayTasks(taskGroupList);
 
 noteFormBtn.addEventListener('click', () => {
     const classList = document.querySelector('#note-form-container').classList;
@@ -21,4 +22,4 @@ document.querySelector('#note-form-submit-btn').addEventListener('click', () => 
         addTask(getFormContent());
         displayTasks(taskGroupList);
     }
-})
+});

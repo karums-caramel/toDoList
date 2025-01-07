@@ -1,3 +1,4 @@
+import { displayTasks } from "./domContentSetter";
 import { taskGroupList } from "./taskAdd";
 
 // the argument 'e' is a click event on a #card-progress-input element. 
@@ -19,7 +20,7 @@ function updateDomStatus (e) {
 
 // primary function that calls the secondaries after changing the status of the task in the taskGroupList imported from taskAdd.js.
 
-function updateStatus (e) {
+/*function updateStatus (e) {
     const newChoice = e.target;
 
     if (newChoice.classList.contains('card-progress-input')){
@@ -27,8 +28,10 @@ function updateStatus (e) {
     }
 
     for (const arr of Object.values(taskGroupList)) {
+        console.log(arr);
         for (const taskObj of arr) {
-            if (taskObj.id = newChoice.parentNode.parentNode.id) {
+            console.log(taskObj);
+            if (taskObj.id === newChoice.parentNode.parentNode.id) {
                 newChoice.classList.forEach((c) => {
                     if (c !== 'card-option' && c !== 'checked') {
                         taskObj.status = c;
@@ -38,6 +41,35 @@ function updateStatus (e) {
                 updateDomStatus(e);
                 setProgressStyling(e);
             }
+        }
+    }
+}*/
+
+function updateStatus (e) {
+    const newChoice = e.target;
+    const currentValueOfStorage = JSON.parse(localStorage.getItem('taskGroupObject'));
+    //console.log(currentValueOfStorage[newChoice.parentNode.parentNode.parentNode.getAttribute('id')]);
+    const currentValueOfStorageValues = Object.values(JSON.parse(localStorage.getItem('taskGroupObject')));
+    //console.log(JSON.parse(localStorage.getItem('taskGroupObject')));
+
+    if (newChoice.classList.contains('card-progress-input')) {
+        return;
+    }
+
+    for (const task of currentValueOfStorage[newChoice.parentNode.parentNode.parentNode.getAttribute('id')]) {
+        if (task.id === newChoice.parentNode.parentNode.getAttribute('id')) {
+            console.log(task);
+            if (newChoice.textContent === 'Not started') {
+                task.status = 'not-started';
+            } else if (newChoice.textContent === 'In progress') {
+                task.status = 'started';
+            } else if (newChoice.textContent === 'Completed!') {
+                task.status = 'completed';
+            };
+            console.log(currentValueOfStorage);
+            localStorage.setItem('taskGroupObject', JSON.stringify(currentValueOfStorage));
+            updateDomStatus(e);
+            setProgressStyling(e);
         }
     }
 }
@@ -74,7 +106,7 @@ function applyDefaultStylesAtElementCreation (taskObj, cardBody) {
     }
 }
 
-function deleteTask(e, arr, taskObj, obj) {
+/*function deleteTask(e, arr, taskObj, obj) {
     const targetParent = e.target.parentNode;
     // first i remove the tasks object from storage so it doesnt respawn upon updating the page.
 
@@ -88,6 +120,26 @@ function deleteTask(e, arr, taskObj, obj) {
         targetParent.parentNode.parentNode.remove();
     } else {
         targetParent.remove();
+    }
+}*/ 
+
+function deleteTask(e) {
+    const cardElement = e.target.parentNode;
+    // this is just a copy of the data object in the localStorage
+    const currentValueOfStorage = JSON.parse(localStorage.getItem('taskGroupObject'));
+    const currentValueOfStorageArr = currentValueOfStorage[cardElement.parentNode.getAttribute('id')];
+
+    // now ts goes through the task objects contained in the project array inside the copy of localStorage.taskObjectGroup
+    for (const task of currentValueOfStorageArr) {
+        // and here it checks whether the current task matches the one that the user clicked on and then removes it from the array, also checking if it's the last  task in the project, in which case it deletes the project too.
+        if (task.id === cardElement.getAttribute('id')) {
+            
+            currentValueOfStorage[cardElement.parentNode.getAttribute('id')].splice(currentValueOfStorage[cardElement.parentNode.getAttribute('id')].indexOf(task), 1);
+            if (currentValueOfStorage[cardElement.parentNode.getAttribute('id')].length === 0) { delete currentValueOfStorage[cardElement.parentNode.getAttribute('id')] };
+            // and finally replaces the taskGroup in localStorage with the updated version ^-^
+            localStorage.setItem('taskGroupObject', JSON.stringify(currentValueOfStorage));
+            displayTasks(currentValueOfStorage);
+        }
     }
 }
 

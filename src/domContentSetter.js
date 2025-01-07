@@ -7,16 +7,17 @@ function displayTasks (obj) {
     main.innerHTML = '';
     let keyIndex = 0;
     let cardIndex = 0;
+    if (!obj) return;
 
     for (const arr of Object.values(obj)) {
         // here i create groups for each separate project the user can assign tasks to.
-
+        
         const projectGroup = document.createElement('div');
         projectGroup.classList.add('project-group');
         projectGroup.setAttribute('id', arr + 'Group');
         const projectGroupInner = document.createElement('div');
         projectGroupInner.classList.add('project-group-inner');
-        projectGroupInner.setAttribute('id', Object.keys(obj)[keyIndex] + 'GroupInner');
+        projectGroupInner.setAttribute('id', Object.keys(obj)[keyIndex]);
 
         const projectHeading = document.createElement('h3');
         projectHeading.textContent = Object.keys(obj)[keyIndex];
@@ -27,7 +28,7 @@ function displayTasks (obj) {
         projectExpandBtn.classList.add('project-expand-btn');
         projectExpandBtn.textContent = 'Hide';
         projectExpandBtn.addEventListener(('click'), (e) => {
-            expandOrHideGroup(e, )
+            expandOrHideGroup(e)
         })
         
         projectGroup.append(projectHeading, projectExpandBtn, projectGroupInner);
@@ -49,7 +50,7 @@ function displayTasks (obj) {
             cardDelBtn.classList.add('card-del-btn');
             cardDelBtn.textContent = 'x';
             cardDelBtn.addEventListener('click', (e) => {
-                deleteTask(e, arr, taskObj, obj);
+                deleteTask(e);
             })
 
             const cardDesc = document.createElement('p');
@@ -57,8 +58,7 @@ function displayTasks (obj) {
             cardDesc.classList.add('card-desc');
 
             const cardDeadline = document.createElement('p');
-            const deadline = taskObj.deadline;
-            cardDeadline.textContent = `${deadline.getDate()}/${deadline.getMonth() + 1}/${deadline.getFullYear()} ${deadline.getHours()}:${deadline.getMinutes()}`;
+            cardDeadline.textContent = taskObj.deadline;
             cardDeadline.classList.add('card-deadline');
 
             const cardProgressInput = document.createElement('div');
