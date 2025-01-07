@@ -10,6 +10,7 @@ html {
     --purple: rgba(125, 132, 178, 0.596);
     --blue: rgb(143, 166, 203);
     --lime-yellow: rgba(220, 244, 167, 0.801);
+    --lime-yellow-darker: rgba(197, 219, 149, 0.801);
     --pastel-green: rgb(213, 249, 222);
 
     --light-gray: rgba(170, 170, 170, 0.5);
@@ -73,7 +74,9 @@ header {
 }
 
 #note-form-btn-wrapper {
-    height: 100%;
+    position: fixed;
+    bottom: calc(0.5 * max(4vw, 4vh, 4rem) );
+    right: calc(0.5 * max(4vw, 4vh, 4rem));
     align-content: center;
     padding: 0 1rem 0 0;
     flex: 1 1 5rem;
@@ -84,9 +87,9 @@ header {
 #note-form-btn {
 
     /* box-shadow: 2px 2px 5px var(--purple); */
-    border-radius: 2rem;
-    height: 2.5rem;
-    width: 2.5rem;
+    border-radius: max(4vw, 4vh, 4rem);
+    height: max(4vw, 4vh, 4rem);
+    width: max(4vw, 4vh, 4rem);
     font-size: 1.2rem;
     z-index: 2;
 }
@@ -111,7 +114,7 @@ header {
 
 #note-form-container {
     position: fixed;
-    top: 2rem;
+    bottom: 2rem;
     right: 2rem;
 
     background-color: var(--pastel-green);
@@ -191,11 +194,11 @@ main {
 }
 
 .project-group {
-    border-top: 0.15rem solid var(--purple);
-    border-bottom: 0.15rem solid var(--purple);
-    border-radius: 0.15rem;
+    border: 0.15rem solid var(--purple);
+    border-radius: 0.3rem;
     padding: 0.5rem;
     flex: 1;
+    background-color: var(--lime-yellow-darker);
     
     display: grid;
     grid-template: 0fr 1fr / 1fr 0.1fr;
