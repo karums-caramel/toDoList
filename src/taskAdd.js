@@ -1,7 +1,10 @@
 let taskGroupList = JSON.parse(localStorage.getItem('taskGroupObject'));
 (!localStorage.getItem('taskId')) ? localStorage.setItem('taskId', 0) : localStorage.setItem('taskId', localStorage.getItem('taskId'));
-const localTaskListSoICanUseItHere = JSON.parse(localStorage.getItem('taskGroupObject')) || {};
+let localTaskListSoICanUseItHere;
 function addTask (inputDataObj) {
+    taskGroupList = JSON.parse(localStorage.getItem('taskGroupObject'));
+    localTaskListSoICanUseItHere = JSON.parse(localStorage.getItem('taskGroupObject')) || {};
+
     if (localTaskListSoICanUseItHere[inputDataObj.project] === undefined) {
         localTaskListSoICanUseItHere[inputDataObj.project] = [];
         localTaskListSoICanUseItHere[inputDataObj.project].push(addItInner());
