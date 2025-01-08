@@ -6,16 +6,13 @@ import { taskGroupList } from "./taskAdd";
 //  secondary function which changes the dom class to reflect one choice being selected
 
 function updateDomStatus (e) {
-    const choices = document.querySelectorAll('.card-option');
     const newChoice = e.target;
+    const choices = newChoice.parentNode.children;
 
-    function resetChoices () {
-        choices.forEach((choice) => {
-            choice.classList.remove('checked');
-        })
+    for (const choice of choices) {
+        choice.classList.remove('checked');
     }
-    resetChoices();
-    newChoice.classList.add('checked');
+    if (newChoice.classList.contains('card-option'))newChoice.classList.add('checked');
 };
 
 // primary function that calls the secondaries after changing the status of the task in the taskGroupList imported from taskAdd.js.

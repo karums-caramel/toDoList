@@ -8,6 +8,13 @@ function displayTasks (obj) {
     let keyIndex = 0;
     let cardIndex = 0;
     if (!obj) return;
+    // function to check whether there are any tasks to display
+    if (Object.values(obj).length === 0) {
+        const noTasksSign = document.createElement('p');
+        noTasksSign.textContent = 'No tasks to display! Create some :p';
+        noTasksSign.setAttribute('id', 'no-tasks-sign');
+        main.append(noTasksSign);
+    } 
 
     for (const arr of Object.values(obj)) {
         // here i create groups for each separate project the user can assign tasks to.
